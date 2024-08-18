@@ -1,15 +1,19 @@
-import Welcom from "../components/welcoming/welcom"
-import { axiosInstance } from "../netwotking/axiosinstance"
+// Home.js
+import React, { useState } from 'react';
+import MovieCards from "../components/moviecards/cards";
+import Pagination from "../components/pagination/pagination";
+import Welcom from "../components/welcoming/welcom";
 
-export default function Home() {
-    axiosInstance.get('discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc')
-    .then(response => {
-        console.log(response.data.results)
-        })
-    .catch(error => {
-        console.error(error)
-        })
-    return (
-        <Welcom />
-    )
-}
+const Home = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  return (
+    <div>
+      <Welcom />
+      <MovieCards currentPage={currentPage} />
+      <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
+    </div>
+  );
+};
+
+export default Home;
